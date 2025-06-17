@@ -8,10 +8,19 @@ import plotly.graph_objects as go
 import shutil
 
 st.set_page_config(page_title="RS4 - Métricas", layout="wide")
-try:
-    st.image("logo.png", use_container_width=True)
-except:
-    st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo.png", use_container_width=True)
+col1, col2 = st.columns(2)
+
+with col1:
+    try:
+        st.image("logo.png", use_container_width=True)
+    except:
+        st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo.png", use_container_width=True)
+
+with col2:
+    try:
+        st.image("logo-ai.png", use_container_width=True)
+    except:
+        st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo-ai.png", use_container_width=True)
 st.markdown("<h1 style='text-align: center; color: white;'>Métricas Comparativas</h1>", unsafe_allow_html=True)
 
 # Sessão: controla se o zip já foi processado
