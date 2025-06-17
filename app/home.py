@@ -1,6 +1,6 @@
 import streamlit as st
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([3, 1])
 
 with col1:
     try:
@@ -14,7 +14,7 @@ with col2:
     except:
         st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo-ai.png", use_container_width=True)
     
-st.markdown("<h1 style='text-align: center; color: white;'>RS4 - Ferramentas de Análise de Séries Temporais</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: white;'>GUISSE - Ferramentas de Análise de Séries Temporais</h1>", unsafe_allow_html=True)
 
 st.write("Bem-vindo! Selecione abaixo o serviço que deseja utilizar:")
 

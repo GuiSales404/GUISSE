@@ -21,7 +21,7 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 # ======================== LOGO E TÍTULO ========================
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([3, 1])
 
 with col1:
     try:
@@ -34,7 +34,7 @@ with col2:
         st.image("logo-ai.png", use_container_width=True)
     except:
         st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo-ai.png", use_container_width=True)
-st.markdown("<h1 style='text-align: center; color: white;'>RS4 - Clustering Parametrizável</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: white;'>GUISSE - Clustering Parametrizável</h1>", unsafe_allow_html=True)
 
 # ======================== UTILITÁRIAS ========================
 def parse_number_list(s: str):
