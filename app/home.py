@@ -1,4 +1,14 @@
 import streamlit as st
+import shutil 
+import os
+
+print(os.listdir())
+
+if os.path.isdir('app/resultados'):
+    shutil.rmtree('app/resultados')
+
+if os.path.isfile('app/resultados.zip'):
+    os.remove('app/resultados.zip')
 
 col1, col2 = st.columns([3, 1])
 
