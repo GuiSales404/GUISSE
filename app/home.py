@@ -2,7 +2,8 @@ import streamlit as st
 import shutil 
 import os
 
-print(os.listdir())
+# Remover config desnecessária - será feita no main.py
+# st.set_page_config já não é necessário aqui
 
 if os.path.isdir('app/resultados'):
     shutil.rmtree('app/resultados')
@@ -10,6 +11,7 @@ if os.path.isdir('app/resultados'):
 if os.path.isfile('app/resultados.zip'):
     os.remove('app/resultados.zip')
 
+# Conteúdo da página Home
 col1, col2 = st.columns([3, 1])
 
 with col1:
@@ -26,9 +28,17 @@ with col2:
     
 st.markdown("<h1 style='text-align: center; color: white;'>GUISSE - Ferramentas de Análise de Séries Temporais</h1>", unsafe_allow_html=True)
 
-st.write("Bem-vindo! Selecione abaixo o serviço que deseja utilizar:")
+st.write("Bem-vindo! Use a barra de navegação acima para acessar os serviços:")
 
-st.page_link("pages/visualizador.py", label="Visualizador de Resultados", icon="📈")
-st.page_link("pages/rs4-parametrizado.py", label="Executar Algoritmos Parametrizados", icon="⚙️")
-st.page_link("pages/metricas.py", label="Comparador de Métricas", icon="📊")
+# Cards informativos para as funcionalidades
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.info("📈 **Visualizador de Resultados**\n\nVisualize e analise os resultados das análises")
+
+with col2:
+    st.info("⚙️ **Algoritmos Parametrizados**\n\nExecute algoritmos com parâmetros customizados")
+
+with col3:
+    st.info("📊 **Comparador de Métricas**\n\nCompare diferentes métricas de performance")
 
