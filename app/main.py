@@ -30,20 +30,16 @@ st.markdown("""
         font-weight: 500 !important;
     }
     
-    /* Forçar navbar horizontal no topo */
-    .stNavigation[data-testid="stNavigation"] {
-        position: relative !important;
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: center !important;
-        align-items: center !important;
-        margin: 0 auto 2rem auto !important;
-        max-width: 800px !important;
+    /* Garantir que o menu hambúrguer seja visível */
+    .stMainMenu {
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     
-    /* Ocultar sidebar se aparecer */
-    .stSidebar {
-        display: none !important;
+    /* Garantir que o header seja visível para acessar configurações */
+    .stAppHeader {
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     
     /* Garantir que o conteúdo principal use toda a largura */
