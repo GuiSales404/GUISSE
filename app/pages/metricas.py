@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import sys
 import json
 import zipfile
 import tempfile
@@ -7,21 +8,39 @@ import pandas as pd
 import plotly.graph_objects as go
 import shutil
 
+# Adicionar o diretório pai ao PATH para importar componentes
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+
+from components.banner import show_banner
+
 st.set_page_config(page_title="RS4 - Métricas", layout="wide")
-col1, col2 = st.columns([3, 1])
 
-with col1:
-    try:
-        st.image("logo.png", use_container_width=True)
-    except:
-        st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo.png", use_container_width=True)
+# Banner principal
+show_banner(
+    title="Métricas Comparativas",
+    subtitle="Compare o desempenho dos diferentes algoritmos de clustering através de métricas detalhadas"
+)
 
-with col2:
-    try:
-        st.image("logo-ai.png", use_container_width=True)
-    except:
-        st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo-ai.png", use_container_width=True)
-st.markdown("<h1 style='text-align: center; color: white;'>Métricas Comparativas</h1>", unsafe_allow_html=True)
+# Cards informativos
+st.markdown("""
+<div style="display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #2E86AB;">
+        <h3 style="color: #2E86AB; margin: 0 0 0.5rem 0; font-size: 1.2rem;">📈 Métricas Comparativas</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">Compare o desempenho de diferentes algoritmos com métricas detalhadas.</p>
+    </div>
+    <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #A23B72;">
+        <h3 style="color: #A23B72; margin: 0 0 0.5rem 0; font-size: 1.2rem;">⚡ Performance Analysis</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">Analise tempo de execução, memória e qualidade dos clusters.</p>
+    </div>
+    <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #F18F01;">
+        <h3 style="color: #F18F01; margin: 0 0 0.5rem 0; font-size: 1.2rem;">📊 Visualizações</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">Gráficos interativos para facilitar a interpretação dos resultados.</p>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 # Sessão: controla se o zip já foi processado
 if "metrics_zip_ready" not in st.session_state:

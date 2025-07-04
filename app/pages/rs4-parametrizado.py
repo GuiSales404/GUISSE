@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import sys
 import json
 import numpy as np
 import pandas as pd
@@ -20,21 +21,37 @@ from sklearn.metrics import silhouette_score
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-# ======================== LOGO E TÍTULO ========================
-col1, col2 = st.columns([3, 1])
+# Adicionar o diretório pai ao PATH para importar componentes
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
 
-with col1:
-    try:
-        st.image("logo.png", use_container_width=True)
-    except:
-        st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo.png", use_container_width=True)
+from components.banner import show_banner
 
-with col2:
-    try:
-        st.image("logo-ai.png", use_container_width=True)
-    except:
-        st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo-ai.png", use_container_width=True)
-st.markdown("<h1 style='text-align: center; color: white;'>GUISSE - Clustering Parametrizável</h1>", unsafe_allow_html=True)
+# Banner principal
+show_banner(
+    title="GUISSE - Clustering Parametrizável",
+    subtitle="Execute algoritmos avançados de clustering em séries temporais com parâmetros customizáveis"
+)
+
+# Cards informativos
+st.markdown("""
+<div style="display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #2E86AB;">
+        <h3 style="color: #2E86AB; margin: 0 0 0.5rem 0; font-size: 1.2rem;">🤖 Algoritmos Avançados</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">K-Shape, HDBSCAN, Hierarchical e outros algoritmos de clustering de ponta.</p>
+    </div>
+    <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #A23B72;">
+        <h3 style="color: #A23B72; margin: 0 0 0.5rem 0; font-size: 1.2rem;">⚙️ Parâmetros Flexíveis</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">Configure todos os parâmetros dos algoritmos para otimizar seus resultados.</p>
+    </div>
+    <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #F18F01;">
+        <h3 style="color: #F18F01; margin: 0 0 0.5rem 0; font-size: 1.2rem;">📊 Resultados Detalhados</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">Obtenha métricas completas e arquivos prontos para visualização.</p>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 # ======================== UTILITÁRIAS ========================
 def parse_number_list(s: str):
