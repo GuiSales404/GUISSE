@@ -19,8 +19,8 @@ if os.path.isfile('app/resultados.zip'):
 
 # Banner principal da home
 show_banner(
-    title="Projeto GUISSE Documentação",
-    subtitle="De tutoriais passo a passo, a referências detalhadas, nossa documentação é sua fonte confiável para dominar todas as nuances dos projetos de análise de séries temporais e alcançar seus objetivos com facilidade."
+    title="🧠 GUISSE - Graphical User Interface for Snippet Selection and Evaluation",
+    subtitle="Uma ferramenta interativa para seleção de snippets em séries temporais via diferentes algoritmos, visualização interativa de resultados e análise comparativa de métricas de desempenho."
 )
 
 # Cards informativos das funcionalidades
