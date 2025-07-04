@@ -1,7 +1,7 @@
 import streamlit as st
 
 def show_footer():
-    """Footer fixo para usar em todas as páginas"""
+    """Footer fixo para usar em todas as páginas - modo light"""
     
     st.markdown("""
     <div style="height: 80px;"></div>
@@ -15,13 +15,13 @@ def show_footer():
         right: 0;
         text-align: center;
         padding: 1rem;
-        background: #f8f9fa;
+        background: #ffffff;
         z-index: 1000;
-        border-top: 1px solid #e9ecef;
+        border-top: 1px solid #e0e0e0;
     ">
         <p style="
             font-family: 'Fira Sans', sans-serif;
-            color: #666;
+            color: #333333;
             margin: 0;
             font-size: 0.9rem;
         ">

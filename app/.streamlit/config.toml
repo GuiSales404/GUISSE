@@ -1,5 +1,5 @@
 [theme]
-# Tema base (light ou dark)
+# Tema base - fixado no modo light
 base = "light"
 
 # Cor primária (botões, links, elementos de destaque)
