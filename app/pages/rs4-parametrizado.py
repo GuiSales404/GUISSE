@@ -27,6 +27,7 @@ if parent_dir not in sys.path:
     sys.path.append(parent_dir)
 
 from components.banner import show_banner
+from components.footer import show_footer
 
 show_banner(
     title="GUISSE - Clustering Parametrizável",
@@ -289,3 +290,6 @@ if st.button("Executar Clusterizações"):
         "Distância": metrics["min_profile_area"]
     })
     st.line_chart(min_profile_df.set_index("Índice"))
+
+# Footer
+show_footer()

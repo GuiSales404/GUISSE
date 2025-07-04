@@ -14,6 +14,7 @@ if parent_dir not in sys.path:
     sys.path.append(parent_dir)
 
 from components.banner import show_banner
+from components.footer import show_footer
 
 st.set_page_config(page_title="RS4 - Visualização", layout="wide")
 
@@ -175,3 +176,6 @@ if "zip_extracted_path" in st.session_state:
 
             st.subheader("Snippets sobrepostos na Série")
             st.plotly_chart(fig_series, use_container_width=True)
+
+# Footer
+show_footer()

@@ -14,6 +14,7 @@ if parent_dir not in sys.path:
     sys.path.append(parent_dir)
 
 from components.banner import show_banner
+from components.footer import show_footer
 
 st.set_page_config(page_title="RS4 - Métricas", layout="wide")
 
@@ -136,3 +137,6 @@ if st.session_state.metrics_zip_ready:
                     bargap=0.4
                 )
                 st.plotly_chart(fig, use_container_width=True)
+
+# Footer
+show_footer()
