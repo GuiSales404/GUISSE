@@ -41,15 +41,23 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# Espaçamento para o footer fixo
+st.markdown("""
+<div style="height: 80px;"></div>
+""", unsafe_allow_html=True)
+
 # Rodapé
 st.markdown("""
 <div style="
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     text-align: center;
-    margin-top: 4rem;
-    padding: 2rem;
+    padding: 1rem;
     background: #f8f9fa;
-    border-radius: 10px;
-    border-top: 3px solid #4472c4;
+    z-index: 1000;
+    border-top: 1px solid #e9ecef;
 ">
     <p style="
         font-family: 'Fira Sans', sans-serif;
