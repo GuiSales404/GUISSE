@@ -3,7 +3,6 @@ import shutil
 import os
 import sys
 
-# Adicionar o diretório atual ao PATH para importar componentes
 current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.append(current_dir)
@@ -17,13 +16,11 @@ if os.path.isdir('app/resultados'):
 if os.path.isfile('app/resultados.zip'):
     os.remove('app/resultados.zip')
 
-# Banner principal da home
 show_banner(
     title="🧠 GUISSE - Graphical User Interface for Snippet Selection and Evaluation",
     subtitle="Uma ferramenta interativa para seleção de snippets em séries temporais via diferentes algoritmos, visualização interativa de resultados e análise comparativa de métricas de desempenho."
 )
 
-# Cards informativos das funcionalidades
 st.markdown("""
 <div style="display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
     <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #4472c4;">
@@ -41,12 +38,10 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Espaçamento para o footer fixo
 st.markdown("""
 <div style="height: 80px;"></div>
 """, unsafe_allow_html=True)
 
-# Rodapé
 st.markdown("""
 <div style="
     position: fixed;

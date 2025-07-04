@@ -1,12 +1,11 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="GUISSE - Análise de Séries Temporais", 
+    page_title="GUISSE", 
     layout="wide",
-    page_icon="📊"
+    page_icon="🧠"
 )
 
-# Apenas importar a fonte Fira Sans e configurar navbar no topo
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap');

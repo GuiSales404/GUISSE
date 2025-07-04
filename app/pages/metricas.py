@@ -8,7 +8,6 @@ import pandas as pd
 import plotly.graph_objects as go
 import shutil
 
-# Adicionar o diretório pai ao PATH para importar componentes
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 if parent_dir not in sys.path:
@@ -18,13 +17,11 @@ from components.banner import show_banner
 
 st.set_page_config(page_title="RS4 - Métricas", layout="wide")
 
-# Banner principal
 show_banner(
     title="Métricas Comparativas",
     subtitle="Compare o desempenho dos diferentes algoritmos de clustering através de métricas detalhadas"
 )
 
-# Cards informativos
 st.markdown("""
 <div style="display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
     <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #2E86AB;">
