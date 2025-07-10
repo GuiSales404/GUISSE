@@ -14,12 +14,13 @@ if current_dir not in sys.path:
 
 from components.navigation import create_navigation
 from components.simple_translator import create_translation_toggle
-from components.logo import add_favicon, add_logo_to_sidebar, add_logo_to_navigation
+from components.logo import add_favicon, add_logo_to_sidebar, add_logo_to_navigation, force_sidebar_open
 
 st.set_page_config(
     page_title="GUISSE", 
     layout="wide",
-    page_icon="🧠"
+    page_icon="🧠",
+    initial_sidebar_state="expanded"
 )
 
 # Adicionar favicon personalizado
@@ -80,6 +81,9 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+# Forçar sidebar sempre aberta
+force_sidebar_open()
 
 # Adicionar logo na sidebar
 add_logo_to_sidebar()
