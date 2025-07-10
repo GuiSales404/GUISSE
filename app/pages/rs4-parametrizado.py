@@ -20,6 +20,8 @@ from scipy.spatial.distance import pdist
 from sklearn.metrics import silhouette_score
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
+warnings.filterwarnings("ignore", category=SyntaxWarning, module="hdbscan")
+warnings.filterwarnings("ignore", message="invalid escape sequence")
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)

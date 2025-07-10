@@ -1,6 +1,11 @@
 import streamlit as st
 import sys
 import os
+import warnings
+
+# Suprimir warnings específicos do hdbscan
+warnings.filterwarnings("ignore", category=SyntaxWarning, module="hdbscan")
+warnings.filterwarnings("ignore", message="invalid escape sequence")
 
 # Adicionar o diretório atual ao PATH para importar componentes
 current_dir = os.path.dirname(os.path.abspath(__file__))
