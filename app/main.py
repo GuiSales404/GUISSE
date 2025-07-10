@@ -14,12 +14,19 @@ if current_dir not in sys.path:
 
 from components.navigation import create_navigation
 from components.simple_translator import create_translation_toggle
+from components.logo import add_favicon, add_logo_to_sidebar, add_logo_to_navigation
 
 st.set_page_config(
     page_title="GUISSE", 
     layout="wide",
     page_icon="🧠"
 )
+
+# Adicionar favicon personalizado
+add_favicon()
+
+# Adicionar logo na navegação
+add_logo_to_navigation()
 
 # Inicializar session_state para tradução
 if 'translate_enabled' not in st.session_state:
@@ -73,6 +80,9 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+# Adicionar logo na sidebar
+add_logo_to_sidebar()
 
 # Criar toggle de tradução na sidebar
 create_translation_toggle()
