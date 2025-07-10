@@ -15,34 +15,35 @@ if parent_dir not in sys.path:
 
 from components.banner import show_banner
 from components.footer import show_footer
+from components.simple_translator import t
 
 st.set_page_config(page_title="RS4 - Visualização", layout="wide")
 
 show_banner(
-    title="Visualização dos Snippets",
-    subtitle="Explore e analise os resultados dos algoritmos de clustering de séries temporais"
+    title=t("Visualização dos Snippets"),
+    subtitle=t("Explore e analise os resultados dos algoritmos de clustering de séries temporais")
 )
 
-st.markdown("""
+st.markdown(f"""
 <div style="display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
     <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #2E86AB;">
-        <h3 style="color: #2E86AB; margin: 0 0 0.5rem 0; font-size: 1.2rem;">📊 Visualização Interativa</h3>
-        <p style="color: #666; margin: 0; font-size: 0.9rem;">Explore os snippets extraídos com gráficos interativos e análises detalhadas.</p>
+        <h3 style="color: #2E86AB; margin: 0 0 0.5rem 0; font-size: 1.2rem;">📊 {t("Visualização Interativa")}</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">{t("Explore os snippets extraídos com gráficos interativos e análises detalhadas.")}</p>
     </div>
     <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #A23B72;">
-        <h3 style="color: #A23B72; margin: 0 0 0.5rem 0; font-size: 1.2rem;">🔍 Análise Detalhada</h3>
-        <p style="color: #666; margin: 0; font-size: 0.9rem;">Examine cada snippet individualmente com informações de contexto e métricas.</p>
+        <h3 style="color: #A23B72; margin: 0 0 0.5rem 0; font-size: 1.2rem;">🔍 {t("Análise Detalhada")}</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">{t("Examine cada snippet individualmente com informações de contexto e métricas.")}</p>
     </div>
     <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #F18F01;">
-        <h3 style="color: #F18F01; margin: 0 0 0.5rem 0; font-size: 1.2rem;">📈 Resultados Comparativos</h3>
-        <p style="color: #666; margin: 0; font-size: 0.9rem;">Compare diferentes algoritmos e suas respectivas extrações de snippets.</p>
+        <h3 style="color: #F18F01; margin: 0 0 0.5rem 0; font-size: 1.2rem;">📈 {t("Resultados Comparativos")}</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">{t("Compare diferentes algoritmos e suas respectivas extrações de snippets.")}</p>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 # === BOTÃO PARA USAR RESULTADO LOCAL ===
-st.markdown("### ⚙️ Opções de Execução")
-use_existing = st.button("Usar resultados da execução do algoritmo")
+st.markdown(f"### ⚙️ {t('Opções de Execução')}")
+use_existing = st.button(t("Usar resultados da execução do algoritmo"))
 
 uploaded_file = None
 is_uploaded = False
@@ -52,11 +53,11 @@ if use_existing:
     if os.path.exists(default_zip_path):
         uploaded_file = open(default_zip_path, "rb")
         is_uploaded = False
-        st.success("Resultados carregados a partir do arquivo local.")
+        st.success(t("Resultados carregados a partir do arquivo local."))
     else:
-        st.error("Arquivo 'resultados.zip' não encontrado no diretório do projeto.")
+        st.error(t("Arquivo 'resultados.zip' não encontrado no diretório do projeto."))
 else:
-    uploaded_file = st.file_uploader("Envie o arquivo .zip com os resultados:", type="zip")
+    uploaded_file = st.file_uploader(t("Envie o arquivo .zip com os resultados:"), type="zip")
     is_uploaded = True if uploaded_file else False
 
 # === EXTRAÇÃO PERSISTENTE ===
@@ -84,7 +85,7 @@ if uploaded_file:
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall(persistent_dir)
     except zipfile.BadZipFile:
-        st.error("O arquivo fornecido não é um arquivo ZIP válido.")
+        st.error(t("O arquivo fornecido não é um arquivo ZIP válido."))
         st.stop()
 
     st.session_state.zip_extracted_path = persistent_dir
@@ -95,14 +96,14 @@ if "zip_extracted_path" in st.session_state:
                        if os.path.isdir(os.path.join(st.session_state.zip_extracted_path, d))]
 
     if not base_candidates:
-        st.warning("Nenhuma pasta encontrada no arquivo ZIP extraído.")
+        st.warning(t("Nenhuma pasta encontrada no arquivo ZIP extraído."))
         st.stop()
 
-    selected_root = st.selectbox("Pasta de Avaliação:", base_candidates)
+    selected_root = st.selectbox(t("Pasta de Avaliação:"), base_candidates)
     base_dir = os.path.join(st.session_state.zip_extracted_path, selected_root)
 
     series = sorted([d for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))])
-    selected_series = st.selectbox("Selecione a Série:", series)
+    selected_series = st.selectbox(t("Selecione a Série:"), series)
     methods_path = os.path.join(base_dir, selected_series)
     methods = sorted(os.listdir(methods_path))
 
@@ -113,17 +114,17 @@ if "zip_extracted_path" in st.session_state:
         with open(serie_txt_path, 'r') as f:
             line = f.readline()
             serie = np.array([float(val) for val in line.strip().split(',')])
-        st.success("Série original carregada com sucesso!")
+        st.success(t("Série original carregada com sucesso!"))
 
-    selected_methods = st.multiselect("Selecione os Métodos a Comparar:", methods)
+    selected_methods = st.multiselect(t("Selecione os Métodos a Comparar:"), methods)
 
     if selected_methods:
-        threshold = st.slider("Valor de Threshold", min_value=0.0, max_value=20.0, value=5.0, step=0.5,
-                              help="Diferença máxima permitida ponto a ponto entre o snippet e o trecho da série.")
+        threshold = st.slider(t("Valor de Threshold"), min_value=0.0, max_value=20.0, value=5.0, step=0.5,
+                              help=t("Diferença máxima permitida ponto a ponto entre o snippet e o trecho da série."))
         if "start_visualization" not in st.session_state:
             st.session_state.start_visualization = False
 
-        if st.button("Iniciar"):
+        if st.button(t("Iniciar")):
             st.session_state.start_visualization = True
 
         if st.session_state.start_visualization:
@@ -171,10 +172,10 @@ if "zip_extracted_path" in st.session_state:
                                         showlegend=False
                                     ))
 
-            st.subheader("Shapes dos Snippets")
+            st.subheader(t("Shapes dos Snippets"))
             st.plotly_chart(fig_shapes, use_container_width=True)
 
-            st.subheader("Snippets sobrepostos na Série")
+            st.subheader(t("Snippets sobrepostos na Série"))
             st.plotly_chart(fig_series, use_container_width=True)
 
 # Footer

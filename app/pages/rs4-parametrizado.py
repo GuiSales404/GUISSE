@@ -28,25 +28,26 @@ if parent_dir not in sys.path:
 
 from components.banner import show_banner
 from components.footer import show_footer
+from components.simple_translator import t
 
 show_banner(
-    title="GUISSE - Clustering Parametrizável",
-    subtitle="Execute algoritmos avançados de clustering em séries temporais com parâmetros customizáveis"
+    title=t("GUISSE - Clustering Parametrizável"),
+    subtitle=t("Execute algoritmos avançados de clustering em séries temporais com parâmetros customizáveis")
 )
 
-st.markdown("""
+st.markdown(f"""
 <div style="display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
     <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #2E86AB;">
-        <h3 style="color: #2E86AB; margin: 0 0 0.5rem 0; font-size: 1.2rem;">🤖 Algoritmos Avançados</h3>
-        <p style="color: #666; margin: 0; font-size: 0.9rem;">K-Shape, HDBSCAN, Hierarchical e outros algoritmos de clustering de ponta.</p>
+        <h3 style="color: #2E86AB; margin: 0 0 0.5rem 0; font-size: 1.2rem;">🤖 {t("Algoritmos Avançados")}</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">{t("K-Shape, HDBSCAN, Hierarchical e outros algoritmos de clustering de ponta.")}</p>
     </div>
     <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #A23B72;">
-        <h3 style="color: #A23B72; margin: 0 0 0.5rem 0; font-size: 1.2rem;">⚙️ Parâmetros Flexíveis</h3>
-        <p style="color: #666; margin: 0; font-size: 0.9rem;">Configure todos os parâmetros dos algoritmos para otimizar seus resultados.</p>
+        <h3 style="color: #A23B72; margin: 0 0 0.5rem 0; font-size: 1.2rem;">⚙️ {t("Parâmetros Flexíveis")}</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">{t("Configure todos os parâmetros dos algoritmos para otimizar seus resultados.")}</p>
     </div>
     <div style="flex: 1; min-width: 250px; background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #F18F01;">
-        <h3 style="color: #F18F01; margin: 0 0 0.5rem 0; font-size: 1.2rem;">📊 Resultados Detalhados</h3>
-        <p style="color: #666; margin: 0; font-size: 0.9rem;">Obtenha métricas completas e arquivos prontos para visualização.</p>
+        <h3 style="color: #F18F01; margin: 0 0 0.5rem 0; font-size: 1.2rem;">📊 {t("Resultados Detalhados")}</h3>
+        <p style="color: #666; margin: 0; font-size: 0.9rem;">{t("Obtenha métricas completas e arquivos prontos para visualização.")}</p>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -181,55 +182,55 @@ def find_snippets_stumpy(ts, subseq_size, num_snippets):
     return snippets, metrics
 
 # ======================== INTERFACE ========================
-subseq_size = st.number_input("Tamanho da subsequência:", min_value=10, max_value=1000, value=150)
-k_min = st.number_input("k mínimo:", 2, 100, 2)
-k_max = st.number_input("k máximo:", 2, 100, 5)
-num_snippets = st.number_input("Quantidade de Snippets:", 1, 100, 1)
+subseq_size = st.number_input(t("Tamanho da subsequência:"), min_value=10, max_value=1000, value=150)
+k_min = st.number_input(t("k mínimo:"), 2, 100, 2)
+k_max = st.number_input(t("k máximo:"), 2, 100, 5)
+num_snippets = st.number_input(t("Quantidade de Snippets:"), 1, 100, 1)
 k_range = (k_min, k_max)
 methods = ['agglomerative', 'hierarchical', 'hdbscan', 'minibatchkmeans', 'kshape', 'snippet_finder']
-selected_methods = st.multiselect("Selecione métodos:", methods)
+selected_methods = st.multiselect(t("Selecione os métodos:"), methods)
 params = {}
 
 for method in selected_methods:
     if method in ['agglomerative', 'hierarchical']:
-        params[method] = {'linkage': st.selectbox(f"Linkage para {method}", ['ward', 'complete', 'average', 'single'], key=method)}
+        params[method] = {'linkage': st.selectbox(t(f"Linkage para {method}"), ['ward', 'complete', 'average', 'single'], key=method)}
     elif method == 'hdbscan':
-        params[method] = {'min_cluster_size': st.number_input("min_cluster_size para HDBSCAN", 2, 100, 5)}
+        params[method] = {'min_cluster_size': st.number_input(t("min_cluster_size para HDBSCAN"), 2, 100, 5)}
     elif method == 'minibatchkmeans':
-        params[method] = {'batch_size': st.number_input("batch_size para MiniBatchKMeans", 10, 500, 50)}
+        params[method] = {'batch_size': st.number_input(t("batch_size para MiniBatchKMeans"), 10, 500, 50)}
     elif method in ['kshape', 'snippet_finder']:
         params[method] = {}
 
 # ======================== SELEÇÃO OU UPLOAD DE SÉRIE ========================
-series_option = st.radio("Como deseja fornecer a série temporal?", ["Selecionar existente", "Fazer upload"])
+series_option = st.radio(t("Como deseja fornecer a série temporal?"), [t("Selecionar existente"), t("Fazer upload")])
 
 dataset = {}
 series_label = ""
 
-if series_option == "Selecionar existente":
+if series_option == t("Selecionar existente"):
     base_path = 'app/time_series'
     for file in os.listdir(base_path):
         with open(os.path.join(base_path, file), 'r') as f:
             dataset[file] = parse_number_list(f.read())
-    selected_series = st.multiselect("Selecione séries para processar:", list(dataset.keys()))
+    selected_series = st.multiselect(t("Selecione séries para processar:"), list(dataset.keys()))
 
-elif series_option == "Fazer upload":
-    uploaded_file = st.file_uploader("Faça upload de um arquivo .txt com a série temporal", type=["txt"])
+elif series_option == t("Fazer upload"):
+    uploaded_file = st.file_uploader(t("Faça upload de um arquivo .txt com a série temporal"), type=["txt"])
     if uploaded_file is not None:
         try:
             content = uploaded_file.read().decode("utf-8")
             ts_values = parse_number_list(content)
             filename = uploaded_file.name
             dataset[filename] = ts_values
-            st.success(f"Série '{filename}' carregada com sucesso!")
-            selected_series = st.multiselect("Selecione séries para processar:", [filename], default=[filename])
+            st.success(t(f"Série '{filename}' carregada com sucesso!"))
+            selected_series = st.multiselect(t("Selecione séries para processar:"), [filename], default=[filename])
         except Exception as e:
-            st.error(f"Erro ao ler a série: {e}")
+            st.error(t(f"Erro ao ler a série: {e}"))
     else:
         selected_series = []
 
 
-if st.button("Executar Clusterizações"):
+if st.button(t("Executar Clusterizações")):
     output_folder = "resultados"
     os.makedirs(output_folder, exist_ok=True)
 
@@ -259,8 +260,8 @@ if st.button("Executar Clusterizações"):
     with open(f"{zip_path}.zip", "rb") as f:
         st.download_button("Baixar Resultados (.zip)", f, file_name=f"{'_'.join(selected_methods)}-{'_'.join(selected_series)}.zip")
         
-    st.success("Processamento finalizado!")
-    st.markdown("### 📊 Prévia de Métricas da Última Série Processada")
+    st.success(t("Processamento finalizado!"))
+    st.markdown(f"### 📊 {t('Prévia de Métricas da Última Série Processada')}")
 
     # Tabela principal
     flat_metrics = {
@@ -276,17 +277,17 @@ if st.button("Executar Clusterizações"):
         cols[i].metric(label, round(value, 3) if isinstance(value, float) else value)
 
     # Área de perfil
-    st.markdown("#### 📌 Área de Perfil por Snippet")
+    st.markdown(f"#### 📌 {t('Área de Perfil por Snippet')}")
     profile_df = pd.DataFrame({
-        "Snippet": list(range(1, len(metrics["profile_area"]) + 1)),
-        "Área de Perfil": metrics["profile_area"]
+        t("Snippet"): list(range(1, len(metrics["profile_area"]) + 1)),
+        t("Área de Perfil"): metrics["profile_area"]
     })
     st.dataframe(profile_df, use_container_width=True)
 
     # Série do perfil mínimo (opcional: para debug ou análise visual)
-    st.markdown("#### 🧬 Perfil Mínimo (Min Profile)")
+    st.markdown(f"#### 🧬 {t('Perfil Mínimo (Min Profile)')}")
     min_profile_df = pd.DataFrame({
-        "Índice": list(range(len(metrics["min_profile_area"]))),
+        t("Índice"): list(range(len(metrics["min_profile_area"]))),
         "Distância": metrics["min_profile_area"]
     })
     st.line_chart(min_profile_df.set_index("Índice"))

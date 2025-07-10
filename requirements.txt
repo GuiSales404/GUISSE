@@ -1,6 +1,10 @@
 # Interface
 streamlit>=1.46.0
 plotly==6.1.2
+streamlit-toggle-switch
+
+# Tradução
+deep-translator
 
 # Processamento e clustering
 numpy==2.1.3

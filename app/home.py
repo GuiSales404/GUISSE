@@ -9,6 +9,7 @@ if current_dir not in sys.path:
 
 from components.banner import show_banner
 from components.footer import show_footer
+from components.simple_translator import t
 
 # Limpar arquivos temporários
 if os.path.isdir('app/resultados'):
@@ -42,8 +43,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 show_banner(
-    title="🧠 GUISSE - Graphical User Interface for Snippet Selection and Evaluation",
-    subtitle="Uma ferramenta interativa para seleção de snippets em séries temporais via diferentes algoritmos, visualização interativa de resultados e análise comparativa de métricas de desempenho."
+    title=t("🧠 GUISSE - Graphical User Interface for Snippet Selection and Evaluation"),
+    subtitle=t("Uma ferramenta interativa para seleção de snippets em séries temporais via diferentes algoritmos, visualização interativa de resultados e análise comparativa de métricas de desempenho.")
 )
 
 st.markdown("""
@@ -95,16 +96,16 @@ st.markdown("""
 
 <div class="card-container">
     <div class="feature-card card-visualizador">
-        <h3 class="card-title">📈 Visualizador de Resultados</h3>
-        <p class="card-description">Pensado para fornecer indicadores e recomendações para a melhoria da saúde dos seus usuários, ajudando as linhas de pesquisa a captar dados para análise.</p>
+        <h3 class="card-title">📈 """ + t("Visualizador de Resultados") + """</h3>
+        <p class="card-description">""" + t("Pensado para fornecer indicadores e recomendações para a melhoria da saúde dos seus usuários, ajudando as linhas de pesquisa a captar dados para análise.") + """</p>
     </div>
     <div class="feature-card card-algoritmos">
-        <h3 class="card-title">⚙️ Algoritmos Parametrizados</h3>
-        <p class="card-description">A prática que visa integrar o desenvolvimento, a operação e a manutenção de sistemas de aprendizado de máquina de forma eficiente e escalável.</p>
+        <h3 class="card-title">⚙️ """ + t("Algoritmos Parametrizados") + """</h3>
+        <p class="card-description">""" + t("A prática que visa integrar o desenvolvimento, a operação e a manutenção de sistemas de aprendizado de máquina de forma eficiente e escalável.") + """</p>
     </div>
     <div class="feature-card card-metricas">
-        <h3 class="card-title">📊 Comparador de Métricas</h3>
-        <p class="card-description">O Kubeflow é um framework open source do Kubernetes usado no desenvolvimento, gerenciamento e execução de cargas de trabalho de machine learning (ML).</p>
+        <h3 class="card-title">📊 """ + t("Comparador de Métricas") + """</h3>
+        <p class="card-description">""" + t("O Kubeflow é um framework open source do Kubernetes usado no desenvolvimento, gerenciamento e execução de cargas de trabalho de machine learning (ML).") + """</p>
     </div>
 </div>
 """, unsafe_allow_html=True)

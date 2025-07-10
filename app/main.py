@@ -8,12 +8,19 @@ if current_dir not in sys.path:
     sys.path.append(current_dir)
 
 from components.navigation import create_navigation
+from components.simple_translator import create_translation_toggle
 
 st.set_page_config(
     page_title="GUISSE", 
     layout="wide",
     page_icon="🧠"
 )
+
+# Inicializar session_state para tradução
+if 'translate_enabled' not in st.session_state:
+    st.session_state.translate_enabled = False
+if 'target_language' not in st.session_state:
+    st.session_state.target_language = 'en'
 
 st.markdown("""
 <style>
@@ -61,6 +68,9 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+# Criar toggle de tradução na sidebar
+create_translation_toggle()
 
 # Criar e executar navegação
 pg = create_navigation()
