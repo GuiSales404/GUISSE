@@ -240,46 +240,32 @@ class SimpleTranslationSystem:
         return text
     
     def create_toggle_ui(self):
-        """Criar interface do toggle de tradução"""
-        # Garantir que o session_state seja inicializado primeiro
-        if 'translate_enabled' not in st.session_state:
-            st.session_state.translate_enabled = False
+        """Criar interface do botão de bandeira para troca de idioma"""
+        # Inicialização do session_state
         if 'target_language' not in st.session_state:
-            st.session_state.target_language = 'pt'
-            
+            st.session_state.target_language = 'en'
+        # Bandeira atual
+        flag = '🇺🇸' if st.session_state.target_language == 'en' else '🇧🇷'
+        label = f"{flag}"
         with st.container():
             st.markdown("### 🌍 Translation System")
-            
-            # Toggle principal
-            enabled = st.toggle(
-                "Enable Translation",
-                value=st.session_state.translate_enabled,
-                key="translation_toggle_simple"
-            )
-            
-            st.session_state.translate_enabled = enabled
-            
-            if enabled:
-                # Traduzir para pt-br
-                st.session_state.target_language = 'pt'
-                st.info("📝 Traduzindo para: Português")
-            else:
-                # Mostrar em inglês
-                st.session_state.target_language = 'en'
+            if st.button(label, key="translation_flag_button"):
+                # Alterna idioma
+                if st.session_state.target_language == 'en':
+                    st.session_state.target_language = 'pt'
+                else:
+                    st.session_state.target_language = 'en'
+            # Mensagem de idioma atual
+            if st.session_state.target_language == 'en':
                 st.info("Exibindo em Inglês (original)")
+            else:
+                st.info("📝 Traduzindo para: Português")
     
     def t(self, text):
         """Função helper para tradução"""
-        # Garantir que o session_state seja inicializado
-        if 'translate_enabled' not in st.session_state:
-            st.session_state.translate_enabled = False
         if 'target_language' not in st.session_state:
-            st.session_state.target_language = 'pt'
-        # Se o toggle estiver ativado, traduz para pt-br
-        if st.session_state.translate_enabled:
-            return self.translate_text(text, 'pt')
-        # Se desativado, exibe em inglês
-        return self.translate_text(text, 'en')
+            st.session_state.target_language = 'en'
+        return self.translate_text(text, st.session_state.target_language)
 
 # Instância global do sistema de tradução
 simple_translation_system = SimpleTranslationSystem()
