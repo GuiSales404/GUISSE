@@ -11,7 +11,7 @@ class SimpleTranslationSystem:
         if 'translate_enabled' not in st.session_state:
             st.session_state.translate_enabled = False
         if 'target_language' not in st.session_state:
-            st.session_state.target_language = 'en'
+            st.session_state.target_language = 'pt'
     
     def load_translations(self):
         """Carregar traduções pré-definidas"""
@@ -229,7 +229,7 @@ class SimpleTranslationSystem:
         except:
             pass
     
-    def translate_text(self, text, target_lang='en'):
+    def translate_text(self, text, target_lang='pt'):
         """Traduzir texto usando dicionário pré-definido"""
         if not text or not text.strip():
             return text
@@ -245,7 +245,7 @@ class SimpleTranslationSystem:
         if 'translate_enabled' not in st.session_state:
             st.session_state.translate_enabled = False
         if 'target_language' not in st.session_state:
-            st.session_state.target_language = 'en'
+            st.session_state.target_language = 'pt'
             
         with st.container():
             st.markdown("### 🌍 Translation System")
@@ -260,11 +260,13 @@ class SimpleTranslationSystem:
             st.session_state.translate_enabled = enabled
             
             if enabled:
-                # Fixo para inglês
-                st.session_state.target_language = 'en'
-                st.info("📝 Translating to: 🇺🇸 English")
+                # Traduzir para pt-br
+                st.session_state.target_language = 'pt'
+                st.info("📝 Traduzindo para: Português")
             else:
-                st.info("🇧🇷 Displaying in Portuguese (original)")
+                # Mostrar em inglês
+                st.session_state.target_language = 'en'
+                st.info("Exibindo em Inglês (original)")
     
     def t(self, text):
         """Função helper para tradução"""
@@ -272,12 +274,12 @@ class SimpleTranslationSystem:
         if 'translate_enabled' not in st.session_state:
             st.session_state.translate_enabled = False
         if 'target_language' not in st.session_state:
-            st.session_state.target_language = 'en'
-            
-        if not st.session_state.translate_enabled:
-            return text
-            
-        return self.translate_text(text, st.session_state.target_language)
+            st.session_state.target_language = 'pt'
+        # Se o toggle estiver ativado, traduz para pt-br
+        if st.session_state.translate_enabled:
+            return self.translate_text(text, 'pt')
+        # Se desativado, exibe em inglês
+        return self.translate_text(text, 'en')
 
 # Instância global do sistema de tradução
 simple_translation_system = SimpleTranslationSystem()
