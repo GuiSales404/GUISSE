@@ -1,34 +1,115 @@
 import streamlit as st
 import shutil 
 import os
+import sys
 
-print(os.listdir())
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.append(current_dir)
 
+from components.banner import show_banner
+from components.footer import show_footer
+from components.simple_translator import t
+
+# Limpar arquivos temporários
 if os.path.isdir('app/resultados'):
     shutil.rmtree('app/resultados')
 
 if os.path.isfile('app/resultados.zip'):
     os.remove('app/resultados.zip')
 
-col1, col2 = st.columns([3, 1])
+# Forçar tema light
+st.markdown("""
+<style>
+/* Forçar tema light */
+.stApp {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
 
-with col1:
-    try:
-        st.image("logo.png", use_container_width=True)
-    except:
-        st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo.png", use_container_width=True)
+[data-testid="stSidebar"] {
+    background-color: #f8f9fa !important;
+}
 
-with col2:
-    try:
-        st.image("logo-ai.png", use_container_width=True)
-    except:
-        st.image("https://raw.githubusercontent.com/GuiSales404/GUISSE/refs/heads/main/app/logo-ai.png", use_container_width=True)
-    
-st.markdown("<h1 style='text-align: center; color: white;'>GUISSE - Ferramentas de Análise de Séries Temporais</h1>", unsafe_allow_html=True)
+[data-testid="stHeader"] {
+    background-color: #ffffff !important;
+}
 
-st.write("Bem-vindo! Selecione abaixo o serviço que deseja utilizar:")
+.main .block-container {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
-st.page_link("pages/visualizador.py", label="Visualizador de Resultados", icon="📈")
-st.page_link("pages/rs4-parametrizado.py", label="Executar Algoritmos Parametrizados", icon="⚙️")
-st.page_link("pages/metricas.py", label="Comparador de Métricas", icon="📊")
+show_banner(
+    title=t("🧠 GUISSE - Graphical User Interface for Snippet Selection and Evaluation"),
+    subtitle=t("Uma ferramenta interativa para seleção de snippets em séries temporais via diferentes algoritmos, visualização interativa de resultados e análise comparativa de métricas de desempenho.")
+)
+
+st.markdown("""
+<style>
+.card-container {
+    display: flex; 
+    gap: 1rem; 
+    margin: 2rem 0; 
+    flex-wrap: wrap;
+}
+
+.feature-card {
+    flex: 1; 
+    min-width: 250px; 
+    padding: 1.5rem; 
+    border-radius: 8px; 
+    background: #ffffff;
+    color: #333333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card-title {
+    margin: 0 0 0.5rem 0; 
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.card-description {
+    margin: 0; 
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+.card-visualizador { border-left: 4px solid #4472c4; }
+.card-algoritmos { border-left: 4px solid #5b9bd5; }
+.card-metricas { border-left: 4px solid #2f5597; }
+
+.card-visualizador .card-title { color: #4472c4; }
+.card-algoritmos .card-title { color: #5b9bd5; }
+.card-metricas .card-title { color: #2f5597; }
+</style>
+
+<div class="card-container">
+    <div class="feature-card card-visualizador">
+        <h3 class="card-title">📈 """ + t("Visualizador de Resultados") + """</h3>
+        <p class="card-description">""" + t("Pensado para fornecer indicadores e recomendações para a melhoria da saúde dos seus usuários, ajudando as linhas de pesquisa a captar dados para análise.") + """</p>
+    </div>
+    <div class="feature-card card-algoritmos">
+        <h3 class="card-title">⚙️ """ + t("Algoritmos Parametrizados") + """</h3>
+        <p class="card-description">""" + t("A prática que visa integrar o desenvolvimento, a operação e a manutenção de sistemas de aprendizado de máquina de forma eficiente e escalável.") + """</p>
+    </div>
+    <div class="feature-card card-metricas">
+        <h3 class="card-title">📊 """ + t("Comparador de Métricas") + """</h3>
+        <p class="card-description">""" + t("O Kubeflow é um framework open source do Kubernetes usado no desenvolvimento, gerenciamento e execução de cargas de trabalho de machine learning (ML).") + """</p>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Footer
+show_footer()
 

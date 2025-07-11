@@ -1,2 +1,40 @@
 [theme]
-base="light"
+# Tema base - fixado no modo light
+base = "light"
+
+# Cor primária (botões, links, elementos de destaque)
+primaryColor = "#4472c4"
+
+# Cor de fundo principal
+backgroundColor = "#ffffff"
+
+# Cor de fundo secundária (sidebar, containers)
+secondaryBackgroundColor = "#f8f9fa"
+
+# Cor do texto
+textColor = "#333333"
+
+# Fonte (monospace, sans serif, serif)
+font = "sans serif"
+
+[server]
+# Configurações do servidor
+headless = true
+enableCORS = false
+enableXsrfProtection = false
+port = 8501
+
+# Configurações de desenvolvimento
+runOnSave = true
+allowRunOnSave = true
+
+[client]
+# Não mostrar detalhes de erro em produção
+showErrorDetails = false
+
+# Configurações de interface
+toolbarMode = "minimal"
+
+[browser]
+# Abrir automaticamente o navegador
+gatherUsageStats = false
