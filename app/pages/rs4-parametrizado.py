@@ -210,7 +210,7 @@ dataset = {}
 series_label = ""
 
 if series_option == t("Selecionar existente"):
-    base_path = 'time_series'
+    base_path = './time_series'
     for file in os.listdir(base_path):
         with open(os.path.join(base_path, file), 'r') as f:
             dataset[file] = parse_number_list(f.read())
