@@ -210,7 +210,7 @@ dataset = {}
 series_label = ""
 
 if series_option == t("Selecionar existente"):
-    base_path = 'app/time_series'
+    base_path = 'time_series'
     for file in os.listdir(base_path):
         with open(os.path.join(base_path, file), 'r') as f:
             dataset[file] = parse_number_list(f.read())
@@ -285,14 +285,6 @@ if st.button(t("Executar Clusterizações")):
         t("Área de Perfil"): metrics["profile_area"]
     })
     st.dataframe(profile_df, use_container_width=True)
-
-    # Série do perfil mínimo (opcional: para debug ou análise visual)
-    st.markdown(f"#### 🧬 {t('Perfil Mínimo (Min Profile)')}")
-    min_profile_df = pd.DataFrame({
-        t("Índice"): list(range(len(metrics["min_profile_area"]))),
-        "Distância": metrics["min_profile_area"]
-    })
-    st.line_chart(min_profile_df.set_index("Índice"))
 
 # Footer
 show_footer()

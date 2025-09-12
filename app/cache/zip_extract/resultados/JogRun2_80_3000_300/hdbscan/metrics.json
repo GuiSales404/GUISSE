@@ -1,7 +1,7 @@
 {
-    "execution_time_sec": 20.958343,
-    "memory_usage_mb": 15.96,
-    "peak_memory_mb": 30.83,
+    "execution_time_sec": 7.920424,
+    "memory_usage_mb": 16.08,
+    "peak_memory_mb": 33.35,
     "profile_area": [
         0.011234098793986453,
         0.0042953907153477616,
@@ -6072,6 +6072,5 @@
         13.080955518324538,
         13.864251706905726
     ],
-    "cover_area": 68336.10851974538,
-    "cover_area_fractions": 0.2506195275070213
+    "cover_area": 68336.10851974538
 }
